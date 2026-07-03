@@ -1,0 +1,66 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "Customer dimension with normalized customer and geographic identifiers."
+    columns:
+      - name: customer_id
+        description: "Unique customer identifier."
+        tests:
+          - not_null
+          - unique
+      - name: customer_city
+        description: "Normalized customer city."
+      - name: customer_state
+        description: "Normalized customer state."
+  - name: dim_products
+    description: "Product dimension with resolved category labels."
+    columns:
+      - name: product_id
+        description: "Unique product identifier."
+        tests:
+          - not_null
+          - unique
+      - name: category_name
+        description: "Resolved product category name."
+  - name: dim_sellers
+    description: "Seller dimension with normalized seller location."
+    columns:
+      - name: seller_id
+        description: "Unique seller identifier."
+        tests:
+          - not_null
+          - unique
+  - name: fact_payments
+    description: "Fact table containing payment attributes joined to orders."
+    columns:
+      - name: order_id
+        description: "Order identifier for payment rows."
+        tests:
+          - not_null
+      - name: payment_value
+        description: "Payment amount for the order."
+  - name: fact_reviews
+    description: "Fact table containing review metrics joined to orders."
+    columns:
+      - name: review_id
+        description: "Unique review identifier."
+        tests:
+          - not_null
+          - unique
+      - name: review_score
+        description: "Review score from customer feedback."
+  - name: fact_sales
+    description: "Fact table with order item sales and order timestamps."
+    columns:
+      - name: order_id
+        description: "Order identifier for the line item."
+        tests:
+          - not_null
+      - name: order_item_id
+        description: "Unique order item identifier."
+        tests:
+          - not_null
+          - unique
+      - name: total_item_value
+        description: "Combined price and freight value for the order item."

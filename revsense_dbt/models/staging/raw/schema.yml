@@ -1,0 +1,100 @@
+version: 2
+
+models:
+  - name: stg_orders
+    description: "Staging orders with normalized timestamps and order-level status data."
+    columns:
+      - name: order_id
+        description: "Unique order identifier."
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        description: "Customer identifier for order lookup."
+        tests:
+          - not_null
+      - name: order_status
+        description: "Order status from the raw orders source."
+      - name: order_purchase_at
+        description: "Purchase timestamp normalized to TIMESTAMP."
+      - name: updated_at
+        description: "Latest event timestamp for the order, used by incremental models."
+  - name: stg_customers
+    description: "Staging customer master data with normalized location fields."
+    columns:
+      - name: customer_id
+        description: "Unique customer identifier."
+        tests:
+          - not_null
+          - unique
+      - name: customer_unique_id
+        description: "Persistent customer business key."
+  - name: stg_order_items
+    description: "Staging order line items with derived total item value."
+    columns:
+      - name: order_item_id
+        description: "Unique order item identifier."
+        tests:
+          - not_null
+          - unique
+      - name: order_id
+        description: "Order identifier for line items."
+        tests:
+          - not_null
+  - name: stg_order_payments
+    description: "Staging order payment details."
+    columns:
+      - name: order_id
+        description: "Order identifier for payments."
+        tests:
+          - not_null
+  - name: stg_order_reviews
+    description: "Staging customer review data for each order."
+    columns:
+      - name: review_id
+        description: "Unique review identifier."
+        tests:
+          - not_null
+          - unique
+      - name: order_id
+        description: "Order identifier for review rows."
+        tests:
+          - not_null
+  - name: stg_products
+    description: "Staging product master data with cleaned attribute names."
+    columns:
+      - name: product_id
+        description: "Unique product identifier."
+        tests:
+          - not_null
+          - unique
+      - name: product_name_length
+        description: "Length of the product name after normalization."
+      - name: product_description_length
+        description: "Length of the product description after normalization."
+  - name: stg_product_category_translation
+    description: "Staging product category translation data with normalized English labels."
+    columns:
+      - name: product_category_name
+        description: "Original product category label."
+        tests:
+          - not_null
+      - name: product_category_name_english
+        description: "Normalized English category label."
+        tests:
+          - not_null
+  - name: stg_sellers
+    description: "Staging seller master data with normalized geography."
+    columns:
+      - name: seller_id
+        description: "Unique seller identifier."
+        tests:
+          - not_null
+          - unique
+  - name: stg_geolocation
+    description: "Staging geo lookup data for ZIP code prefixes."
+    columns:
+      - name: geolocation_zip_code_prefix
+        description: "ZIP code prefix for geolocation lookups."
+        tests:
+          - not_null
