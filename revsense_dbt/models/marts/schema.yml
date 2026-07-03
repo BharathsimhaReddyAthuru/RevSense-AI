@@ -64,3 +64,77 @@ models:
           - unique
       - name: total_item_value
         description: "Combined price and freight value for the order item."
+
+  - name: revenue_summary
+    description: "Overall revenue summary metrics for the entire business."
+    columns:
+      - name: total_orders
+        description: "Total number of completed orders."
+        tests:
+          - not_null
+      - name: total_revenue
+        description: "Total revenue aggregated from order item values."
+      - name: average_order_value
+        description: "Average revenue per order."
+      - name: active_customers
+        description: "Distinct count of customers with completed orders."
+
+  - name: revenue_by_category
+    description: "Revenue and order metrics aggregated by product category."
+    columns:
+      - name: category_name
+        description: "Normalized product category name."
+        tests:
+          - not_null
+      - name: revenue
+        description: "Total revenue by product category."
+      - name: order_count
+        description: "Number of orders containing products from this category."
+      - name: avg_order_value
+        description: "Average revenue per order for the category."
+
+  - name: revenue_by_state
+    description: "Revenue performance and order counts by customer state."
+    columns:
+      - name: customer_state
+        description: "State of the customer placing the order."
+      - name: revenue
+        description: "Total revenue from customers in the state."
+      - name: order_count
+        description: "Number of orders from customers in the state."
+      - name: avg_order_value
+        description: "Average order revenue in the state."
+
+  - name: revenue_by_seller
+    description: "Revenue performance metrics aggregated by seller."
+    columns:
+      - name: seller_id
+        description: "Identifier for the seller."
+        tests:
+          - not_null
+      - name: seller_city
+        description: "Seller city location."
+      - name: seller_state
+        description: "Seller state location."
+      - name: revenue
+        description: "Total revenue attributed to the seller."
+      - name: order_count
+        description: "Number of orders fulfilled by the seller."
+      - name: avg_order_value
+        description: "Average revenue per order for the seller."
+
+  - name: product_review_metrics
+    description: "Product-level review metrics, including average score and negative review ratio."
+    columns:
+      - name: product_id
+        description: "Identifier for the product."
+        tests:
+          - not_null
+      - name: review_count
+        description: "Number of reviews associated with the product."
+      - name: avg_review_score
+        description: "Average review score for the product."
+      - name: negative_review_count
+        description: "Count of low-score reviews."
+      - name: negative_review_ratio
+        description: "Ratio of negative reviews to total reviews."

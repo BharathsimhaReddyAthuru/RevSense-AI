@@ -1,0 +1,68 @@
+version: 2
+
+models:
+  - name: customer_ltv
+    description: "Customer lifetime value dataset with order revenue and retention metrics."
+    columns:
+      - name: customer_id
+        description: "Unique identifier for the customer."
+        tests:
+          - not_null
+      - name: total_orders
+        description: "Total number of completed orders for the customer."
+      - name: total_revenue
+        description: "Total order revenue associated with the customer."
+      - name: avg_order_value
+        description: "Average revenue per order for the customer."
+      - name: customer_age_days
+        description: "Number of days between the first and most recent orders."
+      - name: is_repeat_customer
+        description: "Indicates whether the customer made more than one order."
+      - name: avg_revenue_per_order
+        description: "Average revenue per customer order."
+
+  - name: churn_prediction_dataset
+    description: "Customer churn dataset with the target label and recency-based features."
+    columns:
+      - name: customer_id
+        description: "Unique identifier for the customer."
+        tests:
+          - not_null
+      - name: last_order_at
+        description: "Timestamp of the latest order for the customer."
+      - name: second_last_order_at
+        description: "Timestamp of the previous order if present."
+      - name: days_since_last_order
+        description: "Days elapsed between the latest and prior order."
+      - name: churn_label
+        description: "Target label where 1 indicates likely churn after 90 days."
+
+  - name: monthly_revenue_forecast
+    description: "Monthly revenue dataset with previous period context and baseline forecast."
+    columns:
+      - name: order_month
+        description: "Month of the order revenue period."
+        tests:
+          - not_null
+      - name: revenue
+        description: "Total revenue in the month."
+      - name: prior_month_revenue
+        description: "Prior month revenue used for baseline forecasting."
+      - name: next_month_revenue
+        description: "Next month revenue available for analysis."
+      - name: forecast_revenue
+        description: "Baseline forecast revenue for the month."
+
+  - name: order_volume_forecast
+    description: "Monthly order volume dataset with baseline volume forecast."
+    columns:
+      - name: order_month
+        description: "Order month period."
+        tests:
+          - not_null
+      - name: order_volume
+        description: "Count of distinct orders in the month."
+      - name: prior_month_volume
+        description: "Prior month order volume."
+      - name: forecast_volume
+        description: "Baseline forecast for order volume."
