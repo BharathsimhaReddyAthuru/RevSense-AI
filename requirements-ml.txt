@@ -1,6 +1,14 @@
 scikit-learn
 joblib
-snowflake-connector-python
+snowflake-connector-python[pandas]
 python-dotenv
 pandas
 numpy
+openai
+# Optional chatbot dependencies:
+# chromadb
+# sentence-transformers
+# transformers
+# torch
+# langchain
+# faiss-cpu

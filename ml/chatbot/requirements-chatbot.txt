@@ -1,0 +1,8 @@
+# Requirements for industry-grade chatbot (use with Python 3.11+)
+# PyTorch is installed separately in the Dockerfile to ensure compatible wheels
+langchain
+transformers
+sentence-transformers
+chromadb
+faiss-cpu
+huggingface-hub
