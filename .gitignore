@@ -219,3 +219,5 @@ __marimo__/
 data/
 brazilian-ecommerce.zip
 ml/models/
+ml/chatbot/index/
+ml/chatbot/chatbot.log
